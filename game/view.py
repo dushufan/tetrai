@@ -46,14 +46,14 @@ class View(pyglet.window.Window):
         self._trained_agent = TrainedAgent()
 
     def agent_play(self, dt):
-        self._trained_agent.play(self._board)
+        self._trained_agent.play(self.board)
 
     def use_trained_agent(self, n):
         self._trained_agent = TrainedAgent(n)
         clock.schedule_interval(self.agent_play, 0.3)
 
     def game_over(self):
-        self._board.reset_board()
+        self.board.reset_board()
         self.scorer.reset_game()
         self._score_label.text = 'Score: ' + '0'
         self._level_label.text = 'Level: ' + '1'
@@ -71,7 +71,7 @@ class View(pyglet.window.Window):
         self.clear()
         self._score_label.draw()
         self._level_label.draw()
-        array = self._board.get_board()
+        array = self.board.get_board()
         for y in range(len(array)):
             for x in range(len(array[y])):
                 if array[y][x] == 1:
@@ -92,20 +92,20 @@ class View(pyglet.window.Window):
             self.close()
             exit(0)
         if symbol == key.DOWN:
-            rows_cleared = self._board.drop_block()
+            rows_cleared = self.board.drop_block()
             if rows_cleared == -1:
                 self.game_over()
                 return
             self.do_score_update(rows_cleared)
         if symbol == key.SPACE:
-            self._board.block_rotate()
+            self.board.block_rotate()
         if symbol == key.RIGHT:
-            self._board.block_right()
+            self.board.block_right()
         if symbol == key.LEFT:
-            self._board.block_left()
+            self.board.block_left()
 
     def do_board_update(self, dt):
-        rows_cleared = self._board.block_down()
+        rows_cleared = self.board.block_down()
         if rows_cleared == -1:
             self.game_over()
             return

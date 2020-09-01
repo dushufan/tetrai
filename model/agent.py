@@ -6,27 +6,33 @@ import os
 import numpy as np
 
 
+def build_model():
+    """
+    The input to the model is a 4-dimensional vector with the encoded game state
+    The output of the model is the predicted q-value associated with the game board
+    """
+    model = Sequential()
+    model.add(Dense(32, input_shape=(4,), activation='relu'))
+    model.add(Dense(32, activation='relu'))
+    model.add(Dense(1, activation='linear'))
+    model.compile(optimizer='adam', loss='mean_squared_error')
+    return model
+
+
 class Agent:
-    def __init__(self, load_previous=False):
+    def __init__(self, model_num=None):
         self.episodes = 300
-        self.epsilon = 1
-        self.decay = 1 / self.episodes
         self.gamma = 0.95
 
-        self.model = load_model('trained_models/model17.h5')
-        self.memory = ReplayMemory()
+        if model_num:
+            self.model = self.model = load_model('trained_models/model' + str(model_num) + '.h5')
+        else:
+            self.model = build_model()
 
-    def build_model(self):
-        """
-        The input to the model is a 4-dimensional vector with the encoded game state
-        The output of the model is the predicted q-value associated with the game baord
-        """
-        model = Sequential()
-        model.add(Dense(32, input_shape=(4,), activation='relu'))
-        model.add(Dense(32, activation='relu'))
-        model.add(Dense(1, activation='linear'))
-        model.compile(optimizer='adam', loss='mean_squared_error')
-        return model
+        self.epsilon = 1
+        self.decay = 1 / self.episodes
+
+        self.memory = ReplayMemory()
 
     def predict(self, board: Board):
         """

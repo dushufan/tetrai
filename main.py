@@ -11,13 +11,18 @@ if __name__ == '__main__':
     screen = View(WIDTH, HEIGHT, 'Tetris')
     board = screen.board
 
-    if len(sys.argv) == 1:
-        # no previous model specified so train a new model
-        _agent = Agent()
-        _agent.run(board)
-    else:
-        # start training with the previous model
-        model = sys.argv[1]
-        screen.use_trained_agent(model)
+    if len(sys.argv) >= 2:
+        if sys.argv[1] == 'train':
+            _agent = Agent()
+            _agent.run(board)
+        else:
+            screen.use_trained_agent()
+    elif len(sys.argv) >= 3:
+        model = sys.argv[2]
+        if sys.argv[1] == 'play':
+            screen.use_trained_agent(model)
+        if sys.argv[1] == 'train':
+            _agent = Agent(model_num=model)
+            _agent.run(board)
 
     pyglet.app.run()
