@@ -48,7 +48,7 @@ class View(pyglet.window.Window):
     def agent_play(self, dt):
         self._trained_agent.play(self.board)
 
-    def use_trained_agent(self, n):
+    def use_trained_agent(self, n=None):
         self._trained_agent = TrainedAgent(n)
         clock.schedule_interval(self.agent_play, 0.3)
 
