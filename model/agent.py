@@ -25,7 +25,7 @@ class Agent:
         self.gamma = 0.95
 
         if model_num:
-            self.model = self.model = load_model('trained_models/model' + str(model_num) + '.h5')
+            self.model = load_model('trained_models/model' + str(model_num) + '.h5')
         else:
             self.model = build_model()
 

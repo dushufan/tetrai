@@ -19,9 +19,6 @@ class TrainedAgent:
         self.score = 0
     
     def play(self, board: Board):
-        """
-
-        """
         possible_boards = board.get_next()
         possible_states = []
         for b in possible_boards:

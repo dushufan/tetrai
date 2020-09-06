@@ -11,12 +11,14 @@ The model is trained using reinforcement learning with replay memory and optimiz
 ## Usage
 
 Trained models are stored in a trained_models directory and numbered sequentially (i.e. model0.h5)
+Model 17 and 19 were the most successful of the trained models.
 
 ```
 # train initial model
 python main.py train
 
 # train model based off previous model 
+# the new model is saved as the next model_number
 python main.py train <model_number>
 
 # watch a model play
